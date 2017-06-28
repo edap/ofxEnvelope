@@ -35,28 +35,27 @@ void ofxEnvelope::setupPoints(){
     points.reserve(options.nVertices);
     float x_zero = getPointZero(options.curvature, options.curveHeight);
 
-
+    //this line it is used just as debugging purpose
     for(int y = 0; y< options.curveHeight; y+= 10){
        float x = getVauleOnParabola(options.curvature, y, options.curveHeight/2, x_zero);
        line.addVertex(x,y);
     }
 
     for (int i =0; i< options.nVertices; i++) {
-
         float randomY = ofRandom(options.curveHeight);
         float xOnCurve = getVauleOnParabola(options.curvature, randomY, options.curveHeight/2, x_zero);
-        float negativeXOnCurve = xOnCurve * -1;
+        float radiusLength = abs(xOnCurve);
+        float randomTheta = 2.0f * 3.1415926f * ofRandom(1.0);
 
-        float zOnCurve = xOnCurve;
-        float negativeZOnCurve = zOnCurve * -1;
-        glm::vec3 pos = glm::vec3(ofRandom(xOnCurve, negativeXOnCurve),
+        float x = radiusLength * cosf(randomTheta);
+        float z = radiusLength * sinf(randomTheta);
+
+        glm::vec3 pos = glm::vec3(x,
                                   randomY,
-                                  ofRandom(negativeZOnCurve, zOnCurve));
+                                  z);
 
         points.push_back(pos);
-
     }
-
 };
 
 
