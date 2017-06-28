@@ -36,8 +36,13 @@ void ofxEnvelope::setupPoints(){
     float x_zero = getPointZero(options.curvature, options.curveHeight);
 
 
+    for(int y = 0; y< options.curveHeight; y+= 10){
+       float x = getVauleOnParabola(options.curvature, y, options.curveHeight/2, x_zero);
+       line.addVertex(x,y);
+    }
 
     for (int i =0; i< options.nVertices; i++) {
+
         float randomY = ofRandom(options.curveHeight);
         float xOnCurve = getVauleOnParabola(options.curvature, randomY, options.curveHeight/2, x_zero);
         float negativeXOnCurve = xOnCurve * -1;
@@ -47,7 +52,9 @@ void ofxEnvelope::setupPoints(){
         glm::vec3 pos = glm::vec3(ofRandom(xOnCurve, negativeXOnCurve),
                                   randomY,
                                   ofRandom(negativeZOnCurve, zOnCurve));
+
         points.push_back(pos);
+
     }
 
 };
@@ -58,9 +65,8 @@ const vector<glm::vec3> ofxEnvelope::getPoints() {
 
 
 void ofxEnvelope::draw(){
-
-
     ofSetColor(ofFloatColor::red);
+    line.draw();
     ofDrawCircle(0, options.curveHeight, 0, 20);
     ofSetColor(ofFloatColor::blue);
     for (auto v:points) {
@@ -88,6 +94,7 @@ const float ofxEnvelope::getVauleOnParabola(float a, float y, float y_0, float x
 }
 
 void ofxEnvelope::clear(){
+    line.clear();
     points.clear();
 }
 
