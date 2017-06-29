@@ -102,6 +102,7 @@ float ofxEnvelope::getRandomRadius(float _avgRay){
 
 
 const vector<glm::vec3> ofxEnvelope::getPoints() {
+    return this->points;
 };
 
 
