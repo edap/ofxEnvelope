@@ -107,13 +107,14 @@ const vector<glm::vec3> ofxEnvelope::getPoints() {
 
 
 void ofxEnvelope::draw(){
+    ofPushStyle();
     ofSetColor(ofFloatColor::red);
     line.draw();
-    ofDrawCircle(0, options.curveHeight, 0, 20);
     ofSetColor(ofFloatColor::blue);
     for (auto v:points) {
         ofDrawSphere(v.x, v.y, v.z, 2);
     }
+    ofPopStyle();
 };
 
 
@@ -122,6 +123,13 @@ void ofxEnvelope::moveTo(glm::vec3 _pos){
         v.x += _pos.x;
         v.y += _pos.y;
         v.z += _pos.z;
+    }
+
+    line.clear();
+    float x_zero = getPointZero(options.curvature, options.curveHeight);
+    for(int y = 0; y< options.curveHeight; y+= 10){
+        float x = getVauleOnParabola(options.curvature, y, options.curveHeight/2, x_zero);
+        line.addVertex(x+_pos.x, y+_pos.y);
     }
 }
 
