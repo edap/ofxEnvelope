@@ -25,6 +25,7 @@ public:
     void angleChanghed(float & angle);
     void deviationOnYChanghed(float & yDev);
     void deviationOnXChanghed(float & xDev);
+    void cutTopChanghed(float & cutTop);
     void yOffsetChanghed(int & yOffset);
     void maybeDrawGui();
     void heightChanghed(int & height);
@@ -35,6 +36,7 @@ public:
     ofxFloatSlider angle;
     ofxFloatSlider yDev;
     ofxFloatSlider xDev;
+    ofxFloatSlider cutTop;
     ofxIntSlider yOffset;
     ofxIntSlider height;
     ofxIntSlider nVertices;

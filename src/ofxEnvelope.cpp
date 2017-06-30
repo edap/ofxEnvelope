@@ -2,7 +2,7 @@
 
 static const ofxEnvelopeOptions defaultEnvelopeOptions = {
     400,   // curveHeight
-    1.0,   // curveCutoff
+    0.0,   // curveCutoffTop (percent of the top area that will not be considered)
     0.002, // curvature
     600,   // nVertices
     0.3,   //deviationOnY (percent on the height)
@@ -46,7 +46,9 @@ void ofxEnvelope::setupPoints(){
     for (int i =0; i< options.nVertices; i++) {
         float randomY = getRandomY();
         // do not add points that are not in the range of the interested section
-        if(randomY < options.curveHeight && randomY > 0) {
+        if(randomY < options.curveHeight && randomY > 0 &&
+           !pointInTopCutOffArea(randomY)
+           ) {
             float xOnCurve = getVauleOnParabola(options.curvature, randomY, options.curveHeight/2, x_zero);
             float radiusLength = abs(xOnCurve);
             float radius = getRandomRadius(radiusLength);
@@ -62,6 +64,13 @@ void ofxEnvelope::setupPoints(){
             points.push_back(pos);
         };
     }
+};
+
+bool ofxEnvelope::pointInTopCutOffArea(float y){
+    float lengthToRemove = options.curveCutoffTop * options.curveHeight;
+    bool isIt =  y > (float(options.curveHeight) - lengthToRemove);
+    cout << lengthToRemove << endl;
+    return isIt;
 };
 
 float ofxEnvelope::getRandomY(){
@@ -112,7 +121,7 @@ void ofxEnvelope::draw(){
     line.draw();
     ofSetColor(ofFloatColor::blue);
     for (auto v:points) {
-        ofDrawSphere(v.x, v.y, v.z, 2);
+        ofDrawSphere(v.x, v.y, v.z, 4);
     }
     ofPopStyle();
 };

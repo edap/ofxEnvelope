@@ -5,7 +5,7 @@
 
 struct ofxEnvelopeOptions{
     int curveHeight;
-    float curveCutoff;
+    float curveCutoffTop;
     float curvature;
     int nVertices;
     float deviationOnY;
@@ -40,4 +40,5 @@ private:
 
     std::default_random_engine generator;
     std::normal_distribution<float> distribution;
+    bool pointInTopCutOffArea(float y);
 };

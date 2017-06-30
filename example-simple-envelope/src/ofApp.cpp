@@ -5,6 +5,7 @@ void ofApp::setup(){
     angle.addListener(this, &ofApp::angleChanghed);
     xDev.addListener(this, &ofApp::deviationOnXChanghed);
     yDev.addListener(this, &ofApp::deviationOnYChanghed);
+    cutTop.addListener(this, &ofApp::cutTopChanghed);
     height.addListener(this, &ofApp::heightChanghed);
     nVertices.addListener(this, &ofApp::nVerticesChanghed);
     yOffset.addListener(this, &ofApp::yOffsetChanghed);
@@ -12,8 +13,9 @@ void ofApp::setup(){
     gui.add(angle.setup("angle", 0.002, 0.001, 0.02));
     gui.add(xDev.setup("xDev %", 0.2, 0.0, 0.4));
     gui.add(yDev.setup("yDev %", 0.2, 0.0, 0.4));
+    gui.add(cutTop.setup("cutTop %", 0.0, 0.0, 0.9));
     gui.add(height.setup("height", 600, 10, 900));
-    gui.add(nVertices.setup("nVertices", 400, 10, 1000));
+    gui.add(nVertices.setup("nVertices", 400, 10, 4000));
     //gui.add(yOffset.setup("yOffset", 0, -400, 400));
     light.setup();
     mat.setDiffuseColor(ofFloatColor::red);
@@ -52,6 +54,14 @@ void ofApp::deviationOnYChanghed(float & _devY){
 
 void ofApp::deviationOnXChanghed(float & _devX){
     env.options.deviationOnX = _devX;
+    env.clear();
+    env.setupPoints();
+}
+
+void ofApp::cutTopChanghed(float & _cutTop){
+
+    env.options.curveCutoffTop = _cutTop;
+    cout << env.options.curveCutoffTop << endl;
     env.clear();
     env.setupPoints();
 }
