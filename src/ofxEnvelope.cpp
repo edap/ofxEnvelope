@@ -67,10 +67,8 @@ void ofxEnvelope::setupPoints(){
 };
 
 bool ofxEnvelope::pointInTopCutOffArea(float y){
-    float lengthToRemove = options.curveCutoffTop * options.curveHeight;
-    bool isIt =  y > (float(options.curveHeight) - lengthToRemove);
-    cout << lengthToRemove << endl;
-    return isIt;
+    float segmentToRemove = options.curveCutoffTop * options.curveHeight;
+    return  y > (float(options.curveHeight) - segmentToRemove);
 };
 
 float ofxEnvelope::getRandomY(){
