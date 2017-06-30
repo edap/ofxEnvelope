@@ -157,11 +157,6 @@ float ofxEnvelope::ofRandomGaussian(float mean, float stddev) {
     return distribution(generator);
 }
 
-float ofRandomGaussian() {
-    //this assumes the parameters dont change just get another number from the distribution
-    //return distribution(generator);
-}
-
 void ofxEnvelope::clear(){
     line.clear();
     points.clear();

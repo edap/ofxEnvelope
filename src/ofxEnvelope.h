@@ -36,7 +36,6 @@ private:
     float getRandomY();
     float getRandomRadius(float _avgRay);
     float ofRandomGaussian(float mean, float stddev);
-    float ofRandomGaussian();
 
     std::default_random_engine generator;
     std::normal_distribution<float> distribution;
