@@ -46,7 +46,7 @@ void ofxEnvelope::setupPoints(){
     for (int i =0; i< options.nVertices; i++) {
         float randomY = getRandomY();
         // do not add points that are not in the range of the interested section
-        if(randomY < options.curveHeight && randomY > 0 &&
+        if (randomY < options.curveHeight && randomY > 0 &&
            !pointInTopCutOffArea(randomY)
            ) {
             float xOnCurve = getVauleOnParabola(options.curvature, randomY, options.curveHeight/2, x_zero);
@@ -56,11 +56,8 @@ void ofxEnvelope::setupPoints(){
 
             float x = radius * cosf(randomTheta);
             float z = radius * sinf(randomTheta);
-
-            glm::vec3 pos = glm::vec3(x,
-                                      randomY,
-                                      z);
-
+            glm::vec3 pos = glm::vec3(x, randomY, z);
+            
             points.push_back(pos);
         };
     }
@@ -72,7 +69,7 @@ bool ofxEnvelope::pointInTopCutOffArea(float y){
 };
 
 float ofxEnvelope::getRandomY(){
-    if(options.deviationOnY < 0.01){
+    if (options.deviationOnY < 0.01) {
         return ofRandom(options.curveHeight);
     } else {
         float deviation = options.curveHeight * options.deviationOnY;
@@ -90,7 +87,7 @@ float ofxEnvelope::getRandomY(){
 }
 
 float ofxEnvelope::getRandomRadius(float _avgRay){
-    if(options.deviationOnX < 0.01){
+    if (options.deviationOnX < 0.01) {
         return _avgRay;
     } else {
         float deviation = _avgRay * options.deviationOnX;
@@ -107,11 +104,9 @@ float ofxEnvelope::getRandomRadius(float _avgRay){
     }
 }
 
-
 const vector<glm::vec3> ofxEnvelope::getPoints() {
     return this->points;
 };
-
 
 void ofxEnvelope::draw(){
     ofPushStyle();
@@ -126,7 +121,7 @@ void ofxEnvelope::draw(){
 
 
 void ofxEnvelope::moveTo(glm::vec3 _pos){
-    for(auto &v:points){
+    for (auto &v:points) {
         v.x += _pos.x;
         v.y += _pos.y;
         v.z += _pos.z;
@@ -134,7 +129,7 @@ void ofxEnvelope::moveTo(glm::vec3 _pos){
 
     line.clear();
     float x_zero = getPointZero(options.curvature, options.curveHeight);
-    for(int y = 0; y< options.curveHeight; y+= 10){
+    for (int y = 0; y< options.curveHeight; y+= 10) {
         float x = getVauleOnParabola(options.curvature, y, options.curveHeight/2, x_zero);
         line.addVertex(x+_pos.x, y+_pos.y);
     }
@@ -142,12 +137,10 @@ void ofxEnvelope::moveTo(glm::vec3 _pos){
 
 const float ofxEnvelope::getPointZero(float a, float _height) const{
     return (-1 * a) * ((_height/2.0)*(_height/2.0));
-
 }
 
 const float ofxEnvelope::getVauleOnParabola(float a, float y, float y_0, float x_0) const{
     return a * ((y - y_0)*(y - y_0)) + x_0;
-
 }
 
 // https://github.com/openframeworks/openFrameworks/issues/224
